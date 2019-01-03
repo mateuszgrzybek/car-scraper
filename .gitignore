@@ -1,0 +1,11 @@
+# Directories
+__pycache__/
+scrap_env/
+
+# Working files
+urls.txt
+article0.html
+
+# Effects of the script's work
+car_listings.csv
+car_prices.svg
