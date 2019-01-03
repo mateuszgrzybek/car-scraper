@@ -1,2 +1,0 @@
-https://www.otomoto.pl/osobowe/volkswagen/passat//od-2008/?search%5Bfilter_float_year%3Ato%5D=2008&search%5Bfilter_float_mileage\%3Afrom%5D=150000&search%5Bfilter_float_mileage%3Ato%5D=200000&search%5Bfilter\_enum_fuel_type%5D=petrol&search%5Bnew_used%5D=on
-https://www.otomoto.pl/osobowe/volkswagen/passat/od-2008/?search%5Bfilter_float_year%3Ato%5D=2008&search%5Bfilter_float_mileage%3Afrom%5D=150000&search%5Bfilter_float_mileage%3Ato%5D=200000&search%5Bbrand_program_id%5D%5B0%5D=&search%5Bcountry%5D=
