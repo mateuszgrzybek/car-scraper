@@ -14,7 +14,7 @@ The script should be provided with a simple url aquired by running any kind of
 search query on 'https://www.otomoto.pl'.
 """
 # Starting url
-url = 'https://www.otomoto.pl/osobowe/mazda/cx-5/?search%5Bnew_used%5D=on'
+url = input("Paste the url of search results that you'd like to scrape:\n>> ")
 
 filename = 'car_listings.csv'
 headers = ['title', 'price', 'year', 'mileage', 'fuel']
