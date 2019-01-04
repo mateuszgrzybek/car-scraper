@@ -59,7 +59,7 @@ with open(filename) as f:
         car_name = car_name_raw[0] + ' ' + car_name_raw[1]
         years.append(int(row[2]))
 
-year_keys = list(range(min(years, key=int), max(years, key=int)))
+year_keys = list(range(min(years, key=int), max(years, key=int)+1))
 petrol_prices = dict((key, []) for key in mileage_keys)
 diesel_prices = dict((key, []) for key in mileage_keys)
 combo_prices = dict((key, []) for key in mileage_keys)
