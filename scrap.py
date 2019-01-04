@@ -1,7 +1,6 @@
 import csv
 import webbrowser
 import os
-from collections import defaultdict
 
 from functions import *
 from graph import mileage_chart, year_chart
