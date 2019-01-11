@@ -38,7 +38,7 @@ def year_chart(car_name, year_keys, flat_petrol_y, flat_diesel_y, flat_combo_y,
     config.major_label_font_size = 16
     config.y_labels_major_every = 4
 
-    if len(unique_years) >= 3:
+    if len(unique_years) >= 2:
         # Create the chart
         line_chart = pygal.Line(config, style=chart_style, show_legend=True)
         line_chart.title = """Średnie ceny w zależności od roku produkcji i paliwa.
