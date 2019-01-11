@@ -54,8 +54,11 @@ with open(filename) as f:
             mileage_lists['200-250k'].append([(float(row[1])), row[4], row[3],
                                             row[2]])
 
-        car_name_raw = str(row[0]).split(' ')
-        car_name = car_name_raw[0] + ' ' + car_name_raw[1]
+        try:
+            car_name_raw = str(row[0]).split(' ')
+            car_name = car_name_raw[0] + ' ' + car_name_raw[1]
+        except IndexError:
+            pass
         years.append(int(row[2]))
 
 year_keys = list(range(min(years, key=int), max(years, key=int)+1))
@@ -91,6 +94,8 @@ for k,v in mileage_lists.items():
 mileage_averages = list(mileage_averages(petrol_prices, diesel_prices,
                                          combo_prices))
 year_averages = list(year_averages(year_petrol, year_diesel, year_combo))
+unique_years = set(years)
+
 
 # Extract separate dictionary values from the averages function and work with
 # them to get a format readable by pygal (a list of floats/integers for each
@@ -117,7 +122,8 @@ for sub_1, sub_2, sub_3 in zip(petrol_avgs_y, diesel_avgs_y, combo_avgs_y):
 
 # Create pygal charts based on the aquired data
 mileage_chart(car_name, mileage_keys, flat_petrol, flat_diesel, flat_combo)
-year_chart(car_name, year_keys, flat_petrol_y, flat_diesel_y, flat_combo_y)
+year_chart(car_name, year_keys, flat_petrol_y, flat_diesel_y, flat_combo_y,
+           unique_years)
 
 webbrowser.open('file://' + os.path.realpath('mileage_prices.svg'))
 webbrowser.open('file://' + os.path.realpath('year_prices.svg'))

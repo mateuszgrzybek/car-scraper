@@ -2,6 +2,9 @@
 __pycache__/
 scrap_env/
 
+# Pycharm directories
+.idea/
+
 # Working files
 urls.txt
 article0.html
@@ -10,3 +13,9 @@ article0.html
 car_listings.csv
 mileage_prices.svg
 year_prices.svg
+
+# PyInstaller files and folders
+build/
+dist/
+hook-pygal.py
+scrap.spec
