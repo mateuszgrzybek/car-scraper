@@ -5,6 +5,7 @@ from contextlib import closing
 from requests import get
 from bs4 import NavigableString, BeautifulSoup
 
+
 def get_url(url):
     """Requests the given url and returns it's content if the response is as
     expected.
@@ -14,6 +15,7 @@ def get_url(url):
             return response.text
         else:
             return None
+
 
 def get_listings(url, filename):
     """Keeps getting all the listings starting from the given url."""
@@ -46,6 +48,7 @@ def get_listings(url, filename):
     print('Scraped the given url and {} subsites.'.format(loop_count))
     print('Total sites: {}'.format(loop_count+1))
 
+
 def is_good_response(response):
     """Returns True if status_code = 200 and the HTTP response appears to be
     HTML.
@@ -53,6 +56,7 @@ def is_good_response(response):
     print('Status code:', response.status_code)
     return(response.status_code == 200,
            response.text.find('html'))
+
 
 def get_params(filename, articles):
     """Iterates through all the items within the articles list and finds
@@ -67,28 +71,25 @@ def get_params(filename, articles):
 
             pr_container = article.find('span', class_='offer-price__number')
             pr = [element for element in pr_container if isinstance(element,
-                    NavigableString)]
+                  NavigableString)]
             price = pr[0].strip()
             car.append(price.replace(' ', '').replace(',', '.'))
 
             year_container = article.find('li', {
-                                          'class' : 'offer-item__params-item',
-                                          'data-code' : 'year'
-                                         })
+                                          'class': 'offer-item__params-item',
+                                          'data-code': 'year'})
             year = year_container.span.text.strip()
             car.append(year)
 
             mil_container = article.find('li', {
-                                         'class' : 'offer-item__params-item',
-                                         'data-code' : 'mileage'
-                                        })
+                                         'class': 'offer-item__params-item',
+                                         'data-code': 'mileage'})
             mileage = mil_container.span.text
             car.append(int(mileage[:-3].replace(' ', '')))
 
             fuel_container = article.find('li', {
-                                          'class' : 'offer-item__params-item',
-                                          'data-code' : 'fuel_type'
-                                          })
+                                          'class': 'offer-item__params-item',
+                                          'data-code': 'fuel_type'})
             fuel = fuel_container.span.text
             car.append(fuel)
 
@@ -98,6 +99,7 @@ def get_params(filename, articles):
         except AttributeError:
             """In case one of the containers returns NoneType"""
             pass
+
 
 def mileage_averages(petrol_prices, diesel_prices, combo_prices):
     """Calculates the average prices for each mileage range, additionaly
@@ -111,17 +113,18 @@ def mileage_averages(petrol_prices, diesel_prices, combo_prices):
             avg_petrol[k].append(format(sum(v)/len(v), '.2f'))
         else:
             avg_petrol[k].append(0)
-    for k,v in diesel_prices.items():
+    for k, v in diesel_prices.items():
         if len(v) > 0:
             avg_diesel[k].append(format(sum(v)/len(v), '.2f'))
         else:
             avg_diesel[k].append(0)
-    for k,v in combo_prices.items():
+    for k, v in combo_prices.items():
         if len(v) > 0:
             avg_combo[k].append(format(sum(v)/len(v), '.2f'))
         else:
             avg_combo[k].append(0)
     return avg_petrol, avg_diesel, avg_combo
+
 
 def year_averages(year_petrol, year_diesel, year_combo):
     """Calculates the average prices for each year, additionaly
@@ -130,22 +133,23 @@ def year_averages(year_petrol, year_diesel, year_combo):
     avg_petrol_y = defaultdict(list)
     avg_diesel_y = defaultdict(list)
     avg_combo_y = defaultdict(list)
-    for k,v in year_petrol.items():
+    for k, v in year_petrol.items():
         if len(v) > 0:
             avg_petrol_y[k].append(format(sum(v)/len(v), '.2f'))
         else:
             avg_petrol_y[k].append(0)
-    for k,v in year_diesel.items():
+    for k, v in year_diesel.items():
         if len(v) > 0:
             avg_diesel_y[k].append(format(sum(v)/len(v), '.2f'))
         else:
             avg_diesel_y[k].append(0)
-    for k,v in year_combo.items():
+    for k, v in year_combo.items():
         if len(v) > 0:
             avg_combo_y[k].append(format(sum(v)/len(v), '.2f'))
         else:
             avg_combo_y[k].append(0)
     return avg_petrol_y, avg_diesel_y, avg_combo_y
+
 
 # Unused
 def safe_div(petrol_prices, diesel_prices, combo_prices):
@@ -167,6 +171,7 @@ def safe_div(petrol_prices, diesel_prices, combo_prices):
         avg_diesel = format(sum(diesel_prices)/len(diesel_prices), '.2f')
         avg_combo = format(sum(combo_prices)/len(combo_prices), '.2f')
         return float(avg_petrol), float(avg_diesel), float(avg_combo)
+
 
 def get_mileage_ranges(top=250000, step=50000):
     """Creates a list which contains a bunch of other lists, containing a 50000

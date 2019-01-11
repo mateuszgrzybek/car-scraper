@@ -1,7 +1,9 @@
 import pygal
 from pygal.style import LightColorizedStyle as LCS, RotateStyle as RS
 
-def mileage_chart(car_name, mileage_keys, flat_petrol, flat_diesel, flat_combo):
+
+def mileage_chart(car_name, mileage_keys, flat_petrol, flat_diesel,
+                  flat_combo):
     """Create a chart based on the calculated mileage range averages."""
     # Define the chart's style
     chart_style = RS('#97C9F2', base_style=LCS)
@@ -23,6 +25,7 @@ def mileage_chart(car_name, mileage_keys, flat_petrol, flat_diesel, flat_combo):
     bar_chart.add('Diesel', flat_diesel)
     bar_chart.add('Benzyna+LPG', flat_combo)
     bar_chart.render_to_file('mileage_prices.svg')
+
 
 def year_chart(car_name, year_keys, flat_petrol_y, flat_diesel_y, flat_combo_y,
                unique_years):

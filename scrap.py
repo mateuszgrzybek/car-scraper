@@ -40,19 +40,19 @@ with open(filename) as f:
     for row in reader:
         if int(row[3]) in range(0, 50000):
             mileage_lists['0-50k'].append([(float(row[1])), row[4], row[3],
-                                         row[2]])
+                                           row[2]])
         elif int(row[3]) in range(50000, 100000):
             mileage_lists['50-100k'].append([(float(row[1])), row[4], row[3],
-                                           row[2]])
+                                             row[2]])
         elif int(row[3]) in range(100000, 150000):
             mileage_lists['100-150k'].append([(float(row[1])), row[4], row[3],
-                                            row[2]])
+                                              row[2]])
         elif int(row[3]) in range(150000, 200000):
             mileage_lists['150-200k'].append([(float(row[1])), row[4], row[3],
-                                            row[2]])
+                                              row[2]])
         else:
             mileage_lists['200-250k'].append([(float(row[1])), row[4], row[3],
-                                            row[2]])
+                                              row[2]])
 
         try:
             car_name_raw = str(row[0]).split(' ')
@@ -69,7 +69,7 @@ year_petrol = dict((key, []) for key in year_keys)
 year_diesel = dict((key, []) for key in year_keys)
 year_combo = dict((key, []) for key in year_keys)
 
-for k,v in mileage_lists.items():
+for k, v in mileage_lists.items():
     for mileage_list in v:
         if mileage_list[1] == 'Benzyna':
             petrol_prices[k].append(mileage_list[0])
