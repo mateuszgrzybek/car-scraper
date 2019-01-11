@@ -36,6 +36,7 @@ with open(filename) as f:
     mileage_keys = ['0-50k', '50-100k', '100-150k', '150-200k', '200-250k']
     mileage_lists = dict((key, []) for key in mileage_keys)
     years = []
+    car_names = []
 
     for row in reader:
         if int(row[3]) in range(0, 50000):
@@ -53,13 +54,14 @@ with open(filename) as f:
         else:
             mileage_lists['200-250k'].append([(float(row[1])), row[4], row[3],
                                               row[2]])
-
-        try:
-            car_name_raw = str(row[0]).split(' ')
-            car_name = car_name_raw[0] + ' ' + car_name_raw[1]
-        except IndexError:
-            pass
         years.append(int(row[2]))
+        car_names.append(str(row[0]))
+        unique_car_names = list(set(car_names))
+
+        if len(unique_car_names) > 1:
+            car_name = 'Multiple cars'
+        else:
+            car_name = unique_car_names[0]
 
 year_keys = list(range(min(years, key=int), max(years, key=int)+1))
 petrol_prices = dict((key, []) for key in mileage_keys)
@@ -103,24 +105,17 @@ unique_years = set(years)
 petrol_avgs = mileage_averages[0].values()
 diesel_avgs = mileage_averages[1].values()
 combo_avgs = mileage_averages[2].values()
-flat_petrol, flat_diesel, flat_combo = [], [], []
+flat_petrol = [float(j) for i in petrol_avgs for j in i]
+flat_diesel = [float(j) for i in diesel_avgs for j in i]
+flat_combo = [float(j) for i in combo_avgs for j in i]
 petrol_avgs_y = year_averages[0].values()
 diesel_avgs_y = year_averages[1].values()
 combo_avgs_y = year_averages[2].values()
-flat_petrol_y, flat_diesel_y, flat_combo_y = [], [], []
+flat_petrol_y = [float(j) for i in petrol_avgs_y for j in i]
+flat_diesel_y = [float(j) for i in diesel_avgs_y for j in i]
+flat_combo_y = [float(j) for i in combo_avgs_y for j in i]
 
-for sub_1, sub_2, sub_3 in zip(petrol_avgs, diesel_avgs, combo_avgs):
-    for item_1, item_2, item_3 in zip(sub_1, sub_2, sub_3):
-        flat_petrol.append(float(item_1))
-        flat_diesel.append(float(item_2))
-        flat_combo.append(float(item_3))
-for sub_1, sub_2, sub_3 in zip(petrol_avgs_y, diesel_avgs_y, combo_avgs_y):
-    for item_1, item_2, item_3 in zip(sub_1, sub_2, sub_3):
-        flat_petrol_y.append(float(item_1))
-        flat_diesel_y.append(float(item_2))
-        flat_combo_y.append(float(item_3))
-
-# Create pygal charts based on the aquired data
+# Create pygal charts based on the acquired data
 mileage_chart(car_name, mileage_keys, flat_petrol, flat_diesel, flat_combo)
 year_chart(car_name, year_keys, flat_petrol_y, flat_diesel_y, flat_combo_y,
            unique_years)
