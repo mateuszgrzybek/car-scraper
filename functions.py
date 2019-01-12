@@ -15,6 +15,40 @@ def get_url(url):
             return response.text
         else:
             return None
+            print('Nothing here.')
+
+
+def get_previous_listings(url, filename):
+    """Gets listings from previous pages if the provided url isn't the first
+    page of search results.
+    """
+    loop_count = 0
+    soup = BeautifulSoup(get_url(url), 'html.parser')
+    active_page = soup.find('li', class_='active')
+    while True:
+        """Infinite loop that tries to extract the previous page's url. If
+        there's no url to be found (AttributeError due to NoneType) break the
+        loop.
+        """
+        try:
+            if active_page.text.strip() != 1:
+                previous_url = soup.find('li', class_='prev abs')
+                url = previous_url.a.get('href')
+        except AttributeError:
+            break
+
+        if url:
+            soup = BeautifulSoup(get_url(url), 'html.parser')
+            articles = soup.find_all('article', class_='adListingItem')
+            get_params(filename, articles)
+            loop_count += 1
+            site_count = loop_count
+            print('Scraping previous subsite: {}'.format(site_count))
+        else:
+            break
+
+    if loop_count != 0:
+        print('Scraped {} previous subsites.'.format(loop_count))
 
 
 def get_listings(url, filename):

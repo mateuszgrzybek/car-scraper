@@ -13,9 +13,10 @@ valuable info in the form of a chart.
 The script should be provided with a simple url aquired by running any kind of
 search query on 'https://www.otomoto.pl'.
 """
-# Starting url
-url = input("Paste the url of search results that you'd like to scrape:\n>> ")
-
+# Starting url (strip removes whitespace from the end of the string, because
+# PyCharm won't accept the url without pressing space after pasting it)
+url = input("""Paste the url of search results that you'd like to scrape:
+            >> """).strip()
 filename = 'car_listings.csv'
 headers = ['title', 'price', 'year', 'mileage', 'fuel']
 fuel_types = ['Benzyna', 'Diesel', 'Benzyna+LPG']
@@ -27,6 +28,7 @@ with open(filename, 'w') as f:
 f.close()
 
 get_listings(url, filename)
+get_previous_listings(url, filename)
 
 # Work with the created csv file
 with open(filename) as f:
@@ -57,7 +59,6 @@ with open(filename) as f:
         years.append(int(row[2]))
         car_names.append(str(row[0]))
         unique_car_names = list(set(car_names))
-
         if len(unique_car_names) > 1:
             car_name = 'Multiple cars'
         else:
@@ -87,7 +88,8 @@ for k, v in mileage_lists.items():
                 year_petrol[year].append(mileage_list[0])
             elif mileage_list[3] == str(year) and mileage_list[1] == 'Diesel':
                 year_diesel[year].append(mileage_list[0])
-            elif mileage_list[3] == str(year) and mileage_list[1] == 'Benzyna+LPG':
+            elif (mileage_list[3] == str(year) and
+                  mileage_list[1] == 'Benzyna+LPG'):
                 year_combo[year].append(mileage_list[0])
             else:
                 pass
