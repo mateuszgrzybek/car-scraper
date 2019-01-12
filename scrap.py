@@ -2,7 +2,8 @@ import csv
 import webbrowser
 import os
 
-from functions import *
+from functions import mileage_averages, year_averages
+from classes import CreateCsv
 from graph import mileage_chart, year_chart
 
 """
@@ -13,25 +14,16 @@ valuable info in the form of a chart.
 The script should be provided with a simple url aquired by running any kind of
 search query on 'https://www.otomoto.pl'.
 """
-# Starting url (strip removes whitespace from the end of the string, because
-# PyCharm won't accept the url without pressing space after pasting it)
-url = input("""Paste the url of search results that you'd like to scrape:
-            >> """).strip()
-filename = 'car_listings.csv'
-headers = ['title', 'price', 'year', 'mileage', 'fuel']
+
+create_file = CreateCsv(headers=['title', 'price', 'year', 'mileage', 'fuel'])
+create_file.create_csv_headers()
+create_file.get_listings()
+create_file.get_previous_listings()
+
 fuel_types = ['Benzyna', 'Diesel', 'Benzyna+LPG']
 
-# Add headers to the file
-with open(filename, 'w') as f:
-    writer = csv.writer(f)
-    writer.writerow(headers)
-f.close()
-
-get_listings(url, filename)
-get_previous_listings(url, filename)
-
 # Work with the created csv file
-with open(filename) as f:
+with open(create_file.filename) as f:
     reader = csv.reader(f)
     header_row = next(reader)
 
