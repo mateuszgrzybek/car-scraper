@@ -19,3 +19,6 @@ build/
 dist/
 hook-pygal.py
 scrap.spec
+
+# mac files
+.DS_Store
