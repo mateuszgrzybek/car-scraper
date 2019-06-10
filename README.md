@@ -8,12 +8,18 @@ The repository contains three main .py files. The main file is 'scrap.py', which
 'functions.py' and 'graph.py'.
 
 # Installation
-No installation, the main script ('scrap.py') has to be ran through a terminal in a virtual environment.
+Run:
+```
+python3 -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
+```
+Done. You can now run `python3 scrap.py` and let the scraper work.
 
 # Requirements
 All the packages required to run the script properly are defined in the requirements.txt file.
 
 # Sample urls
-https://www.otomoto.pl/osobowe/volkswagen/passat/?search%5Bnew_used%5D=on
-https://www.otomoto.pl/osobowe/mazda/6/?search%5Bbrand_program_id%5D%5B0%5D=&search%5Bcountry%5D=
-https://www.otomoto.pl/osobowe/mercedes-benz/c-klasa/od-2008/?search%5Bbrand_program_id%5D%5B0%5D=&search%5Bcountry%5D=
+* https://www.otomoto.pl/osobowe/volkswagen/passat/?search%5Bnew_used%5D=on
+* https://www.otomoto.pl/osobowe/mazda/6/?search%5Bbrand_program_id%5D%5B0%5D=&search%5Bcountry%5D=
+* https://www.otomoto.pl/osobowe/mercedes-benz/c-klasa/od-2008/?search%5Bbrand_program_id%5D%5B0%5D=&search%5Bcountry%5D=
